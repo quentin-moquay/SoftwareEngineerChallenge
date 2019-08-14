@@ -1,8 +1,13 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import java.util.LinkedList;
 
 class ImmutableQueueTest {
+
+    private Runtime runtime = Runtime.getRuntime();
+    private static int MB = 1024 * 1024;
+    private static int MAX = 5_000; // need to be configured according to the computer
 
     /**
      * Simply to verify that the Queue is working properly
@@ -61,7 +66,7 @@ class ImmutableQueueTest {
                 .deQueue()
                 .deQueue();
         assertEquals("[]", step9.toString());
-        assertEquals(null, step9.head());
+        assertNull(step9.head());
         assertTrue(step9.isEmpty());
 
         // we can reuse the empty Queue to put elements
@@ -77,17 +82,65 @@ class ImmutableQueueTest {
     }
 
     /**
-     * We gonna test larges scales of data to see if everything is OK.
+     * Let's try if we have a lot of Queues in memory at the same time
+     * This one can cause lots of heapspace.
+     * JUnit asserts costs a lot too.
      */
     @Test
-    void performanceTest() {
+    void memoryTest() {
+        System.out.println("Keep Var - memory at start : " + this.memoryUsed());
+        LinkedList<Queue<Integer>> queuesJam = new LinkedList<>();
+        Queue<Integer> queue = new ImmutableQueue<>();
+        long maxMemoryUsed = 0L;
+        for (Integer i = 0; i < MAX; i++) {
+            Queue<Integer> qPrevious = (i > 0) ? queuesJam.getLast() : new ImmutableQueue<>();
+            queuesJam.add(qPrevious.enQueue(i));
+            if (i % 1_000 == 0) {
+                long memory = this.memoryUsed();
+                if (maxMemoryUsed < memory) {
+                    maxMemoryUsed = memory;
+                }
+            }
+            if (i > 0) {
+                Queue<Integer> qCurrent = queuesJam.getLast();
+                assertNotEquals(qPrevious, qCurrent);
+                assertEquals(Integer.valueOf(0), qPrevious.head());
+                assertEquals(Integer.valueOf(0), qCurrent.head());
+                assertEquals(generateArray(i - 1), qPrevious.toString());
+                assertEquals(generateArray(i), qCurrent.toString());
+            }
+        }
+        for (int i = MAX-1; i < 0; i--) {
+            Queue<Integer> qPrevious = queuesJam.get(i);
+            queuesJam.add(queue.deQueue());
+            Queue<Integer> qCurrent = queuesJam.getLast();
+            assertNotEquals(qPrevious, qCurrent);
+            assertEquals(Integer.valueOf(0), qPrevious.head());
+            assertEquals(Integer.valueOf(1), qCurrent.head());
+        }
+        long memory = this.memoryUsed();
+        System.out.println("Keep Var - max memory consumed : " + maxMemoryUsed);
+        System.out.println("Keep Var - memory at the end : " + memory);
     }
 
-    @Test
-    void head() {
+    private long memoryUsed() {
+        return (runtime.totalMemory() - runtime.freeMemory()) / MB;
     }
 
-    @Test
-    void isEmpty() {
+    // faster test exec
+    private StringBuffer sb = new StringBuffer();
+    private int lastIGenerated = -1;
+
+    private String generateArray(int size) {
+
+        for (int i = lastIGenerated; i <= size; i++) {
+            if (i > lastIGenerated) {
+                sb.append(i);
+                sb.append(",");
+            }
+        }
+        lastIGenerated = size;
+
+        return "[" + sb.toString().substring(0, sb.length() - 1) + "]";
     }
 }
