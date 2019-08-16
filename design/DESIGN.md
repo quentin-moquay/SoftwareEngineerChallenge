@@ -87,7 +87,7 @@ This proposition is based on feedbacks read online. That kind of task should be 
 
 ## Concrete proposition
 
-![](https://lh3.googleusercontent.com/mzGRQsMyHi2Hfk5NZ2_Qi6NIqNOze6cmpohYPolMarbAilCAF4SSHg1ygQ0ZZDM9M-e5-U_NIFCZpG6bCEEc1qcT60gG6EvWfcYY0jIS7I6sdjMW3zx31Yvqjw8d04tI8WG4r7fbCIMpuc_M-h-DUarO2v4O1z577zVveecjW8SYglK5v1L3NOaKk9eaGBTUMZz6zvyk8j7cj1JvQVF-3k0e8DH3QOK8tiTf5P8lSThxnTC6pII5GmM6FfDcJKanW_WPg0pN5mFVNB2Ga-fAF0ooRvSouLSUgl6t8dCsITrujJNrlWMurvlm7AJWYX5HXN06Jmfe_jLyiaeLrqfd8OP-35gG0vRTJg4DtRoDR3cMEXaIQrZZmBBZ-AzbAk_7P6G43omz9jjUn7G-Tl1hxaTj4n-Zk2Yek3Tj6N5TuGL1k_ZoQo4pCe6osPSJ9-oqwLiktCGoUEZf4LZgBa3W3LXNSq86tucOQpf2ltT8EpvW0JAKNB7PQpZ8jNosmCZqjRXrYBuNwM6qB9LwNK_6gEVCHlr6IG73LeMebKpy2-8TXmvAnS5n2-Ca_RF6bPS400D8EHUYw_w-QNhoJzvv7Me8hYXP4kOrrGOOAoTdNL8DQXt5JUqG8yUm5vNwYayS3_Rg0FttHbWEizJnKV0x2nnYCw8ZuNvD=w814-h564-no)
+![](design.png)
 
 | Type | Solution | Why|
 |----- |------|-------|
