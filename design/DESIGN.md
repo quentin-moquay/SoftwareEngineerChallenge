@@ -1,7 +1,6 @@
-#Designing Backend like Google Analytics
+# Designing Backend like Google Analytics
 
-This is an agnostic solution. I talk about the logic of the system and how it
-will be constructed. I think that all concepts in here are true whatever tools we will take.
+This is an agnostic solution. I talk about the logic of the system and how it will be constructed. I think that all concepts in here are true whatever tools we will take.
 
 The concrete proposition is at the end of this document.
 
@@ -19,10 +18,7 @@ The concrete proposition is at the end of this document.
 
 I'm assuming we providing a backend and every merchants got his own frontend on his side.
 
-Since we could have a huge variety of websites and apps from Android to iOS and
-so on, we need to expose a simple REST API since every language and framework
-will always provide a REST HTTP API. We'll need to provide a good documentation and prepare
-to assume support if clients don't understand the API.
+Since we could have a huge variety of websites and apps from Android to iOS and so on, we need to expose a simple REST API since every language and framework will always provide a REST HTTP API. We'll need to provide a good documentation and prepare to assume support if clients don't understand the API.
 
 To limit this problem, we can provides libraries in a wide range of languages
 
@@ -58,8 +54,7 @@ It's probably one of the most used services in the World, so it's a good referen
 
 ## Back API to get query from clients
 
-We need to use Microservices technology for scalability of traffic.
-API Gateway to route traffic.
+We need to use Microservices technology for scalability of traffic. API Gateway to route traffic.
 
 ## Concept
 - Control coherence of data
@@ -73,16 +68,13 @@ To get a best precision of our storage cost, we need to:
     - [Limits from Google Analytics](https://developers.google.com/analytics/devguides/config/mgmt/v3/limits-quotas)
 
 ### Tracability    
-Every call of the API will get a special trackId. This id will be the same in every step of his life.
-It's like a tracking number. It will be useful to help reproduce a call.
+Every call of the API will get a special trackId. This id will be the same in every step of his life. It's like a tracking number. It will be useful to help reproduce a call.
 
-This track id will be generate from `IP + merchant id + timestamp` and send in HTTP request in a special header.
-We need to use that ID from API Gateway to the end. __It means, client should generates it well__.
+This track id will be generate from `IP + merchant id + timestamp` and send in HTTP request in a special header. We need to use that ID from API Gateway to the end. __It means, client should generates it well__.
 
 ## Backend to get query from merchants
 
-Microservices technology for scalability of traffic.
-API Gateway to route traffic.
+Microservices technology for scalability of traffic. API Gateway to route traffic.
 
 ### Considered solution
 This backend provides a graphic interface where merchants can display results and filter them.
@@ -97,7 +89,7 @@ This proposition is based on feedbacks read online. That kind of task should be 
 
 ## Concrete proposition
 
-![](design.png)
+![](https://lh3.googleusercontent.com/mzGRQsMyHi2Hfk5NZ2_Qi6NIqNOze6cmpohYPolMarbAilCAF4SSHg1ygQ0ZZDM9M-e5-U_NIFCZpG6bCEEc1qcT60gG6EvWfcYY0jIS7I6sdjMW3zx31Yvqjw8d04tI8WG4r7fbCIMpuc_M-h-DUarO2v4O1z577zVveecjW8SYglK5v1L3NOaKk9eaGBTUMZz6zvyk8j7cj1JvQVF-3k0e8DH3QOK8tiTf5P8lSThxnTC6pII5GmM6FfDcJKanW_WPg0pN5mFVNB2Ga-fAF0ooRvSouLSUgl6t8dCsITrujJNrlWMurvlm7AJWYX5HXN06Jmfe_jLyiaeLrqfd8OP-35gG0vRTJg4DtRoDR3cMEXaIQrZZmBBZ-AzbAk_7P6G43omz9jjUn7G-Tl1hxaTj4n-Zk2Yek3Tj6N5TuGL1k_ZoQo4pCe6osPSJ9-oqwLiktCGoUEZf4LZgBa3W3LXNSq86tucOQpf2ltT8EpvW0JAKNB7PQpZ8jNosmCZqjRXrYBuNwM6qB9LwNK_6gEVCHlr6IG73LeMebKpy2-8TXmvAnS5n2-Ca_RF6bPS400D8EHUYw_w-QNhoJzvv7Me8hYXP4kOrrGOOAoTdNL8DQXt5JUqG8yUm5vNwYayS3_Rg0FttHbWEizJnKV0x2nnYCw8ZuNvD=w814-h564-no)
 
 | Type | Solution | Why|
 |-----  |------|-------|
