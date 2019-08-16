@@ -68,7 +68,7 @@ To get the best precision of our storage cost, we need to:
 ### Traceability
 Every call of the API will get a special tracking id. This id will be the same in every step of his life. It's like a tracking number. It will be useful to help reproduce a call.
 
-This tracking id will be generated from `IP + merchant id + timestamp` and send in HTTP request in a special header. We need to use that ID from API Gateway to the end. __The load balancer can generate it.__.
+This tracking id will be generated from `IP + merchant id + timestamp` and send in HTTP request in a special header. We need to use that ID from API Gateway to the end. __The load balancer can generate it.__
 
 ## Backend to get queries from merchants
 
