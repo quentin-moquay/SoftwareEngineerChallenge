@@ -6,13 +6,13 @@ The concrete proposition is at the end of this document.
 
 ## System volumetry
 
-- Billions of requests from clients by day
-- Millions of merchants will ask analytics results
+- Billions of requests from clients by day.
+- Millions of merchants will ask analytics results.
 
 ## Solution requirements
-- We need to provide results before 1 hour for each merchant
-- We are looking for the minimal downtime
-- We need to be able to track a request and reproduce it easily
+- We need to provide results before 1 hour for each merchant.
+- We are looking for the minimal downtime.
+- We need to be able to track a request and reproduce it easily.
 
 ## Client API
 
@@ -20,13 +20,11 @@ I'm assuming we providing a backend and every merchants got his own frontend on 
 
 Since we could have a huge variety of websites and apps from Android to iOS and so on, we need to expose a simple REST API since every language and framework will always provide a REST HTTP API. We'll need to provide a good documentation and prepare to assume support if clients don't understand the API.
 
-To limit this problem, we can provides libraries in a wide range of languages
+To limit this problem, we can provides libraries in a wide range of languages.
 
 |Pros | Cons |
 |-----|------|
-|No risk of bad analytics since client can less messed up the integration| Will cost a lot to our company to create and maintain each library|
-
-We could provided those libraries under open-source licence to help support more languages without too much costs.
+|No risk of bad analytics since client can less messed up the integration.| Will cost a lot to our company to create and maintain each library.| We could provided those libraries under open-source licence to help support more languages without too much costs.
 
 ## Database capacity
 
@@ -35,7 +33,7 @@ We could provided those libraries under open-source licence to help support more
 | Low | 1 | `1024 * 1 000 000 000 =  1 024 000 000 000 bytes`
 | Medium   | 3 | `4096 * 3 000 000 000 = 12 288 000 000 000 bytes`
 | High   | 6 | `8192 * 6 000 000 000 = 49 152 000 000 000 bytes`
-- Max request size was arbitrarily determined
+- Max request size was arbitrarily determined.
 - [Max billions were determined by Google searchs by day.](https://searchengineland.com/google-now-handles-2-999-trillion-searches-per-year-250247)
 It's probably one of the most used services in the World, so it's a good reference.
 
@@ -45,19 +43,19 @@ It's probably one of the most used services in the World, so it's a good referen
 
 - A raw database with all data inside.
 - A middleware to analyze data and put them into specials analytic database.
-    - there is no need to query multiples merchants at the same time
-    - better query performance
-    - better security, no data can mixed up together
-- We need to remove data periodically
-    - If we don't, amount of data will be unbearable
-    - It will limit analytics results possibility
+- There is no need to query multiples merchants at the same time.
+    - Better query performance.
+    - Better security, no data can mixed up together: __One merchant should not see an other merchant data.__
+- We need to remove data periodically.
+    - If we don't, amount of data will be unbearable.
+    - It will limit analytics results possibility.
 
 ## Back API to get query from clients
 
 We need to use Microservices technology for scalability of traffic. API Gateway to route traffic.
 
 ## Concept
-- Control coherence of data
+- Control coherence of data.
 - Put every data into database for a specific merchant.
 
 ### Structure
@@ -98,9 +96,9 @@ This proposition is based on feedbacks read online. That kind of task should be 
 | Pairing between Gateway and API | Netflix OSS Eureka |  Eureka server acts as a registry and allows all clients to register themselves and used for Service Discovery to be able to find IP address and port of other services if they want to talk to. Pairing very well with Zuul and Sprint Boot.
 | API for clients| Spring Boot | Spring Boot is very famous and regularly updated. Works well with Eureka. Using JVM ecosystem is a mature environment and  provides a huge range of libraries.
 | Tracking System | Elasticsearch and Fluentd and Kibana | HAProxy, Zuul and Spring Boot will write logs with the unique track id. Fluentd will parse them and expose it to elasticsearch. We will be able to reproduce requests with this. We can use Kibana to read easily results.
-| Backend for merchants | Grafana | Wide ranges of graphics, Good pairing with Elasticsearch but can be used with others inputs too. Designed for Graphics and analysis.
+| Backend for merchants | Grafana | Wide ranges of graphics, Good pairing with Elasticsearch but can be used with others inputs too. Designed for Graphics and analysis. We can manage users on it and forbidden others merchants data.
 | Database for raw data | Apache Cassandra | Fault tolerant, Free, Scalable, Distributed Processing. Can manage petabytes of data.
-| Analytics provider | Elassandra (Elasticsearch fork) | We can easily extract data we need for analyze from Cassandra with it. Grafana can read it easily.
+| Analytics provider | Elassandra (Elasticsearch fork) | We can easily extract data we need for analyze from Cassandra with it. Grafana can read it easily. We can use an index per merchant to improve performance and security.
 
 Sources (some are in French) :
 - [Google Analytics (GA) like Backend System Architecture](https://medium.com/@abhilashkrishnan_64923/google-analytics-ga-like-backend-system-architecture-7a7826d56af7)
