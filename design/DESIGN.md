@@ -29,7 +29,7 @@ To limit this problem, we can provides libraries in a wide range of languages
 |-----|------|
 |No risk of bad analytics since client can less messed up the integration| Will cost a lot to our company to create and maintain each library|
 
-We could provided thoses libraries under open-source licence to help support more languages without too much costs.
+We could provided those libraries under open-source licence to help support more languages without too much costs.
 
 ## Database capacity
 
@@ -75,6 +75,9 @@ To get a best precision of our storage cost, we need to:
 Every call of the API will get a special trackId. This id will be the same in every step of his life.
 It's like a tracking number. It will be useful to help reproduce a call.
 
+This track id will be generate from `IP + merchant id + timestamp` and send in HTTP request in a special header.
+We need to use that ID from API Gateway to the end. __It means, client should generates it well__.
+
 ## Backend to get query from merchants
 
 Microservices technology for scalability of traffic.
@@ -94,10 +97,11 @@ This proposition is based on feedbacks read online. That kind of task should be 
 ## Concrete proposition
 | Type | Solution | Why|
 |-----  |------|-------|
-| Load balancer | HAProxy| Open-source, popular and often used in many high-profile environments like GitHub, Imgur, Instagram, and Twitter.
+| Load balancer | HAProxy| Open-source, popular and often used in many high-profile environments like GitHub, Imgur, Instagram, and Twitter. __Can generate a unique tracking id.__
 | Gateway to API | Zuul | Developped by Netflix, last release from few weeks ago. Largely used.
 | Pairing between Gateway and API | Netflix OSS Eureka |  Eureka server acts as a registry and allows all clients to register themselves and used for Service Discovery to be able to find IP address and port of other services if they want to talk to. Pairing very well with Zuul and Sprint Boot.
 | API for clients| Spring Boot | Spring Boot is very famous and regularly updated. Works well with Eureka. Using JVM ecosystem is a mature environment and  provides a huge range of libraries.
+| Tracking System | Elasticsearch and Fluentd | HAProxy, Zuul and Spring Boot will write logs with the unique track id. Fluentd will parse them and expose it to elasticsearch. We will be able to reproduce requests with this. 
 | Backend for merchants | Kibana | Wide ranges of graphics, Good pairing with Elasticsearch. Designed for Graphics and analysis.
 | Database for raw data | Apache Cassandra | Fault tolerant, Free, Scalable, Distributed Processing. Can manage petabytes of data.
 | Analytics provider | Elassandra (Elasticsearch fork) | We can easily extract data we need for analyze from Cassandra with it. Kibana can read it natively.
@@ -113,3 +117,7 @@ Sources (some are in French) :
 - [Elasticsearch for Hadoop](https://www.elastic.co/what-is/elasticsearch-hadoop)
 - [Complementing Cassandra with Elasticsearch](https://blog.devartis.com/complementing-cassandra-with-elasticsearch-121c70ef7f4)
 - [Elassandra : Elasticsearch+Cassandra framework](https://www.elassandra.io/)
+- [HAProxy can add headers](https://cbonte.github.io/haproxy-dconv/1.7/configuration.html#7.3.1)
+- [Monitoring HAProxy Real-time with Elasticsearch and Fluentd](https://www.fluentd.org/guides/recipes/haproxy-elasticsearch)
+- [Fluentd vs. LogStash: A Feature Comparison](https://www.loomsystems.com/blog/single-post/2017/01/30/a-comparison-of-fluentd-vs-logstash-log-collector)
+- [Zuul Filters, log customization](https://github.com/Netflix/zuul/wiki/Filters)
