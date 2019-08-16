@@ -42,7 +42,7 @@ We could provided those libraries under open-source licence to help support more
 - [Max billions were determined by Google searchs by day.](https://searchengineland.com/google-now-handles-2-999-trillion-searches-per-year-250247)
 It's probably one of the most used services in the World, so it's a good reference.
 
-1.024 terabyte to more than 49.15 terabytes. 
+1.024 terabyte to more than 49.15 terabytes.
 
 ## Database
 
@@ -83,10 +83,10 @@ We need to use that ID from API Gateway to the end. __It means, client should ge
 Microservices technology for scalability of traffic.
 API Gateway to route traffic.
 
-### Considered solution 
+### Considered solution
 This backend provides a graphic interface where merchants can display results and filter them.
 
-### Needs 
+### Needs
 This service needs to provide to each merchants data before 1 hour.
 
 
@@ -101,10 +101,10 @@ This proposition is based on feedbacks read online. That kind of task should be 
 | Gateway to API | Zuul | Developped by Netflix, last release from few weeks ago. Largely used.
 | Pairing between Gateway and API | Netflix OSS Eureka |  Eureka server acts as a registry and allows all clients to register themselves and used for Service Discovery to be able to find IP address and port of other services if they want to talk to. Pairing very well with Zuul and Sprint Boot.
 | API for clients| Spring Boot | Spring Boot is very famous and regularly updated. Works well with Eureka. Using JVM ecosystem is a mature environment and  provides a huge range of libraries.
-| Tracking System | Elasticsearch and Fluentd | HAProxy, Zuul and Spring Boot will write logs with the unique track id. Fluentd will parse them and expose it to elasticsearch. We will be able to reproduce requests with this. 
-| Backend for merchants | Kibana | Wide ranges of graphics, Good pairing with Elasticsearch. Designed for Graphics and analysis.
+| Tracking System | Elasticsearch and Fluentd | HAProxy, Zuul and Spring Boot will write logs with the unique track id. Fluentd will parse them and expose it to elasticsearch. We will be able to reproduce requests with this.
+| Backend for merchants | Grafana | Wide ranges of graphics, Good pairing with Elasticsearch but can be used with others inputs too. Designed for Graphics and analysis.
 | Database for raw data | Apache Cassandra | Fault tolerant, Free, Scalable, Distributed Processing. Can manage petabytes of data.
-| Analytics provider | Elassandra (Elasticsearch fork) | We can easily extract data we need for analyze from Cassandra with it. Kibana can read it natively.
+| Analytics provider | Elassandra (Elasticsearch fork) | We can easily extract data we need for analyze from Cassandra with it. Grafana can read it easily.
 
 Sources (some are in French) :
 - [Google Analytics (GA) like Backend System Architecture](https://medium.com/@abhilashkrishnan_64923/google-analytics-ga-like-backend-system-architecture-7a7826d56af7)
@@ -121,3 +121,7 @@ Sources (some are in French) :
 - [Monitoring HAProxy Real-time with Elasticsearch and Fluentd](https://www.fluentd.org/guides/recipes/haproxy-elasticsearch)
 - [Fluentd vs. LogStash: A Feature Comparison](https://www.loomsystems.com/blog/single-post/2017/01/30/a-comparison-of-fluentd-vs-logstash-log-collector)
 - [Zuul Filters, log customization](https://github.com/Netflix/zuul/wiki/Filters)
+- [Elasticsearch cluster](https://logz.io/blog/elasticsearch-cluster-tutorial/)
+- [Scaling Elasticsearch](https://medium.com/hipages-engineering/scaling-elasticsearch-b63fa400ee9e)
+- [Grafana vs Kibana](https://stackshare.io/stackups/grafana-vs-kibana)
+- [Grafana vs. Kibana: The Key Differences to Know](https://logz.io/blog/grafana-vs-kibana/)
