@@ -66,9 +66,9 @@ To get the best precision of our storage cost, we need to:
     - [Limits from Google Analytics](https://developers.google.com/analytics/devguides/config/mgmt/v3/limits-quotas)
 
 ### Traceability
-Every call of the API will get a special trackId. This id will be the same in every step of his life. It's like a tracking number. It will be useful to help reproduce a call.
+Every call of the API will get a special tracking id. This id will be the same in every step of his life. It's like a tracking number. It will be useful to help reproduce a call.
 
-This tracking id will be generated from `IP + merchant id + timestamp` and send in HTTP request in a special header. We need to use that ID from API Gateway to the end. __It means, clients should generate it well__.
+This tracking id will be generated from `IP + merchant id + timestamp` and send in HTTP request in a special header. We need to use that ID from API Gateway to the end. __The load balancer can generate it.__.
 
 ## Backend to get queries from merchants
 
@@ -95,7 +95,7 @@ This proposition is based on feedbacks read online. That kind of task should be 
 | Gateway to API | Zuul | Developed by Netflix, the last release from a few weeks ago. Largely used.
 | Pairing between Gateway and API | Netflix OSS Eureka | Eureka server acts as a registry and allows all clients to register themselves and used for Service Discovery to be able to find an IP address and port of other services if they want to talk to. Pairing very well with Zuul and Sprint Boot.
 | API for clients| Spring Boot | Spring Boot is very famous and regularly updated. Works well with Eureka. Using the JVM ecosystem is a mature environment and provides a huge range of libraries.
-| Tracking System | Elasticsearch and Fluentd and Kibana | HAProxy, Zuul and Spring Boot will write logs with the unique track id. Fluentd will parse them and expose it to Elasticsearch. We will be able to reproduce requests with this. We can use Kibana to read easily results.
+| Tracking System | Elasticsearch and Fluentd and Kibana | HAProxy, Zuul and Spring Boot will write logs with the unique tracking id. Fluentd will parse them and expose it to Elasticsearch. We will be able to reproduce requests with this. We can use Kibana to read easily results.
 | Backend for merchants | Grafana | Wide ranges of graphics, Good pairing with Elasticsearch but can be used with others inputs too. Designed for Graphics and analysis. We can manage users on it and forbidden other merchants data.
 | Database for raw data | Apache Cassandra | Fault-tolerant, Free, Scalable, Distributed Processing. Can manage petabytes of data.
 | Analytics provider | Elassandra (Elasticsearch fork) | We can easily extract data we need to analyze from Cassandra with it. Grafana can read it easily. We can use an index per merchant to improve performance and security.
