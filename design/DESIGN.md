@@ -1,8 +1,9 @@
 #Designing Backend like Google Analytics
 
 This is an agnostic solution. I talk about the logic of the system and how it
-will be constructed. For frameworks naming and so on, we will see after. I think
-that all concepts in here are true whatever tools we will take.
+will be constructed. I think that all concepts in here are true whatever tools we will take.
+
+The concrete proposition is at the end of this document.
 
 ## System volumetry
 
@@ -95,13 +96,16 @@ This service needs to provide to each merchants data before 1 hour.
 This proposition is based on feedbacks read online. That kind of task should be a team work to exchange ideas and to confront thoughts.
 
 ## Concrete proposition
+
+![](design.png)
+
 | Type | Solution | Why|
 |-----  |------|-------|
 | Load balancer | HAProxy| Open-source, popular and often used in many high-profile environments like GitHub, Imgur, Instagram, and Twitter. __Can generate a unique tracking id.__
 | Gateway to API | Zuul | Developped by Netflix, last release from few weeks ago. Largely used.
 | Pairing between Gateway and API | Netflix OSS Eureka |  Eureka server acts as a registry and allows all clients to register themselves and used for Service Discovery to be able to find IP address and port of other services if they want to talk to. Pairing very well with Zuul and Sprint Boot.
 | API for clients| Spring Boot | Spring Boot is very famous and regularly updated. Works well with Eureka. Using JVM ecosystem is a mature environment and  provides a huge range of libraries.
-| Tracking System | Elasticsearch and Fluentd | HAProxy, Zuul and Spring Boot will write logs with the unique track id. Fluentd will parse them and expose it to elasticsearch. We will be able to reproduce requests with this.
+| Tracking System | Elasticsearch and Fluentd and Kibana | HAProxy, Zuul and Spring Boot will write logs with the unique track id. Fluentd will parse them and expose it to elasticsearch. We will be able to reproduce requests with this. We can use Kibana to read easily results.
 | Backend for merchants | Grafana | Wide ranges of graphics, Good pairing with Elasticsearch but can be used with others inputs too. Designed for Graphics and analysis.
 | Database for raw data | Apache Cassandra | Fault tolerant, Free, Scalable, Distributed Processing. Can manage petabytes of data.
 | Analytics provider | Elassandra (Elasticsearch fork) | We can easily extract data we need for analyze from Cassandra with it. Grafana can read it easily.
